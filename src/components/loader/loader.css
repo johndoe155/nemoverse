@@ -1,0 +1,154 @@
+.ingress-loader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  display: grid;
+  place-items: center;
+  background: var(--void);
+  overflow: hidden;
+}
+
+.ingress-loader.is-exiting {
+  pointer-events: none;
+}
+
+.ingress-loader.is-exiting .ingress-veil {
+  transform: scale(1.4);
+  opacity: 0;
+  transition: transform 1s var(--ease-out-expo), opacity 0.8s ease;
+}
+
+.ingress-loader.is-exiting .ingress-copy,
+.ingress-loader.is-exiting .ingress-core {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.96);
+  transition: opacity 0.5s ease, transform 0.7s var(--ease-out-expo);
+}
+
+.ingress-veil {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(167, 139, 250, 0.18), transparent 42%),
+    radial-gradient(circle at 30% 80%, rgba(103, 232, 249, 0.06), transparent 40%),
+    radial-gradient(circle at 70% 20%, rgba(240, 198, 116, 0.05), transparent 35%);
+  animation: veil-breathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes veil-breathe {
+  from {
+    transform: scale(1);
+    filter: hue-rotate(0deg);
+  }
+  to {
+    transform: scale(1.08);
+    filter: hue-rotate(12deg);
+  }
+}
+
+.ingress-core {
+  position: absolute;
+  width: min(42vw, 280px);
+  height: min(42vw, 280px);
+  display: grid;
+  place-items: center;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ingress-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  animation: spin 18s linear infinite;
+}
+
+.ingress-ring.ring-2 {
+  inset: 18%;
+  border-color: rgba(103, 232, 249, 0.25);
+  border-style: dashed;
+  animation-direction: reverse;
+  animation-duration: 12s;
+}
+
+.ingress-orb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-bright);
+  box-shadow:
+    0 0 24px var(--accent-glow),
+    0 0 60px rgba(167, 139, 250, 0.4);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+.ingress-copy {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: min(48vh, 340px);
+  padding: 0 var(--gutter);
+}
+
+.ingress-title {
+  font-size: var(--text-xl);
+  margin: var(--space-4) 0 var(--space-7);
+  letter-spacing: -0.04em;
+}
+
+.ingress-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.ingress-bar {
+  flex: 1;
+  height: 1px;
+  background: var(--border-soft);
+  overflow: hidden;
+}
+
+.ingress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent-bright));
+  box-shadow: 0 0 12px var(--accent-glow);
+  transition: width 80ms linear;
+}
+
+.ingress-pct {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  min-width: 2.5ch;
+}
+
+.ingress-hint {
+  margin-top: var(--space-5);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
